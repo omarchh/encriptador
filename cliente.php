@@ -7,6 +7,10 @@ $string_got = implode(" ",$argv);
 $host="127.0.0.1";//localhost
 //puerto de comunicacion que usara el socket
 $puerto=4545;
+//tamaño del buffer
+$tamanio=2048;
+//Lectura del socket (String)
+$salida='';
 
 $servers = [
     ['ip'=>"127.0.0.1",'port'=>4545],
@@ -27,20 +31,21 @@ $socket=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 //creamos una conexion de socket
 $conexion=socket_connect($socket,$host,$puerto);
 
-$tamaño=2048;//tamaño del buffer
+
 if($conexion){
-echo "Conexion Exitosa a ".$host." : ".$puerto."\n\n";
-$buffer=$string_got; //Mensaje a enviar al servidor
-$salida='';
-//buffer->trabaja con almacenamiento de memoria
-socket_write($socket,$buffer);
+    echo "Conexion Exitosa a ".$host." : ".$puerto."\n\n";
+    $buffer=$string_got; //Mensaje a enviar al servidor
+    
+    //buffer->trabaja con almacenamiento de memoria
+    socket_write($socket,$buffer);
 
-while($salida=socket_read($socket,$tamaño)){
-echo $salida;
+    while($salida=socket_read($socket,$tamanio)){
+        echo $salida;
+    }
+
 }
-
-}else{
-echo "\n la conexion TCP no se a podido realizar, puerto: ".$puerto;
+else{
+    echo "\n la conexion TCP no se a podido realizar, puerto: ".$puerto;
 }
 
 socket_close($socket); //cierra el recurso socket dado por $socket

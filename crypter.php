@@ -1,7 +1,7 @@
 <?php
 	class Encrypter{
 
-		function crypt($cadena){
+		public static function crypt($cadena){
 			$crypted = "";
 			$array = [];
 
