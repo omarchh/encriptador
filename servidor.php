@@ -21,8 +21,7 @@
 		$buffer=socket_read($cliente, $tamanio); //leemos mensaje del cliente
 		
 		//Proceso de encriptacion
-		$encriptador = new Encrypter();
-		$encriptada = $encriptador->crypt($buffer);
+		$encriptador = Encrypter::crypt($buffer);
 
 		socket_write($cliente, $encriptada); //escribimos el buffer
 		socket_close($cliente); //cerramos cliente
